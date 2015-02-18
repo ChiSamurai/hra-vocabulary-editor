@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xf="http://www.w3.org/2002/xforms">
     <head>
-        <title>Cluster Repository Editor</title>
+        <title>HRA Vocabulary Editor</title>
         <link rel="stylesheet" type="text/css" href="resources/css/cluster-repository-editor.css"/>
     </head>
     <body>
@@ -9,13 +9,13 @@
                 <xf:instance id="i-template">
                     <template xmlns=""/>
                 </xf:instance>
-                <xf:submission id="s-create-user-collections" resource="create-user-collections.xq" replace="none" method="get" instance="i-template"/>
+                <xf:submission id="s-create-user-collections" resource="modules/administration/create-user-collections.xq" replace="none" method="get" instance="i-template"/>
                 <xf:action ev:event="xforms-ready">
                     <xf:send submission="s-create-user-collections"/>    
                 </xf:action>
             </xf:model>
             <xf:model id="m-person">
-                <xf:instance xmlns="http://www.tei-c.org/ns/1.0" id="i-template" src="person-template.xq"/>
+                <xf:instance xmlns="http://www.tei-c.org/ns/1.0" id="i-template" src="modules/persons/person-template.xq"/>
                 <xf:instance id="i-suggestion">
                     <pair xmlns=""/>
                 </xf:instance>
@@ -36,7 +36,7 @@
                         <state type="existing"/>
                     </person>
                 </xf:instance>
-                <xf:submission id="s-add-person" resource="/exist/rest/db/resources/services/repositories/local/users/{instance('i-template')//tei:titleStmt/tei:author/@key}/persons/{instance('i-template')//tei:person/@xml:id}.xml" method="put" ref="instance('i-template')" replace="none">
+                <xf:submission id="s-add-person" resource="/exist/rest/db/data/services/repositories/local/users/{instance('i-template')//tei:titleStmt/tei:author/@key}/persons/{instance('i-template')//tei:person/@xml:id}.xml" method="put" ref="instance('i-template')" replace="none">
                     <xf:action ev:event="xforms-submit-error">
                         <xf:message>The record was not saved.</xf:message>
                     </xf:action>
@@ -47,12 +47,12 @@
                         <xf:send submission="s-load-person-template"/>
                     </xf:action>
                 </xf:submission>
-                <xf:submission id="s-load-person-template" resource="person-template.xq" replace="instance" method="get" instance="i-template"/>
+                <xf:submission id="s-load-person-template" resource="modules/persons/person-template.xq" replace="instance" method="get" instance="i-template"/>
                 <xf:submission id="s-load-suggestions-by-forename" resource="cluster-services.xq?type=local-persons&amp;query={encode-for-uri(instance('i-template')//tei:person/tei:persName/tei:forename)}&amp;page_limit=15&amp;page=1" method="get" replace="instance" instance="i-suggestion"/>
                 <xf:submission id="s-load-suggestions-by-surname" resource="cluster-services.xq?type=local-persons&amp;query={encode-for-uri(instance('i-template')//tei:person/tei:persName/tei:surname)}&amp;page_limit=15&amp;page=1" method="get" replace="instance" instance="i-suggestion"/>
             </xf:model>
             <xf:model id="m-organisation">
-                <xf:instance xmlns="http://www.tei-c.org/ns/1.0" id="i-template" src="organisation-template.xq"/>
+                <xf:instance xmlns="http://www.tei-c.org/ns/1.0" id="i-template" src="modules/organisations/organisation-template.xq"/>
                 <xf:instance id="i-suggestion">
                     <pair xmlns=""/>
                 </xf:instance>
@@ -70,7 +70,7 @@
                         <state type="existing"/>
                     </org>
                 </xf:instance>
-                <xf:submission id="s-add-organisation" resource="/exist/rest/db/resources/services/repositories/local/users/{instance('i-template')//tei:titleStmt/tei:author/@key}/organisations/{instance('i-template')//tei:org/@xml:id}.xml" method="put" ref="instance('i-template')" replace="none">
+                <xf:submission id="s-add-organisation" resource="/exist/rest/db/data/services/repositories/local/users/{instance('i-template')//tei:titleStmt/tei:author/@key}/organisations/{instance('i-template')//tei:org/@xml:id}.xml" method="put" ref="instance('i-template')" replace="none">
                     <xf:action ev:event="xforms-submit-error">
                         <xf:message>The record was not saved.</xf:message>
                     </xf:action>
@@ -81,7 +81,7 @@
                         <xf:send submission="s-load-template"/>
                     </xf:action>
                 </xf:submission>
-                <xf:submission id="s-load-template" resource="organisation-template.xq" replace="instance" method="get" instance="i-template"/>
+                <xf:submission id="s-load-template" resource="modules/organisations/organisation-template.xq" replace="instance" method="get" instance="i-template"/>
                 <xf:submission id="s-load-suggestions" resource="cluster-services.xq?type=local-organisations&amp;query={encode-for-uri(instance('i-template')//tei:orgName)}&amp;page_limit=15&amp;page=1" replace="instance" method="get" instance="i-suggestion"/>
             </xf:model>
         </div>
