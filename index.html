@@ -165,10 +165,16 @@
                         </xf:item>
                     </xf:select1>
                     <p/>
-                    <xf:trigger>
-                        <xf:label>Save</xf:label>
-                        <xf:send submission="s-add-person"/>
-                    </xf:trigger>
+                    <xf:group appearance="bf:horizontalTable">
+                        <xf:trigger>
+                            <xf:label>Save</xf:label>
+                            <xf:send submission="s-add-person"/>
+                        </xf:trigger>
+                        <xf:trigger>
+                            <xf:label>Clear</xf:label>
+                            <xf:send submission="s-load-person-template"/>
+                        </xf:trigger>                        
+                    </xf:group>
                 </xf:group>
             </xf:group>
             <xf:group class="suggestion-group">
@@ -302,10 +308,16 @@
                         </xf:item>
                     </xf:select1>
                     <p/>
-                    <xf:trigger>
-                        <xf:label>Save</xf:label>
-                        <xf:send submission="s-add-organisation"/>
-                    </xf:trigger>
+                    <xf:group appearance="bf:horizontalTable">
+                        <xf:trigger>
+                            <xf:label>Save</xf:label>
+                            <xf:send submission="s-add-organisation"/>
+                        </xf:trigger>
+                        <xf:trigger>
+                            <xf:label>Clear</xf:label>
+                            <xf:send submission="s-load-organisation-template"/>
+                        </xf:trigger>                        
+                    </xf:group>
                 </xf:group>
             </xf:group>
             <xf:group class="suggestion-group">
