@@ -15,9 +15,7 @@
                 </xf:action>
             </xf:model>
             <xf:model id="m-person">
-                <xf:instance id="i-person-template">
-                    <TEI xmlns="http://www.tei-c.org/ns/1.0"/>
-                </xf:instance>
+                <xf:instance xmlns="http://www.tei-c.org/ns/1.0" id="i-person-template" src="modules/persons/person-template.xq"/>
                 <xf:instance id="i-person-suggestion">
                     <pair xmlns=""/>
                 </xf:instance>
@@ -40,7 +38,7 @@
                 </xf:instance>
                 <xf:submission id="s-add-person" resource="/exist/rest/db/data/services/repositories/local/users/{instance('i-person-template')//tei:titleStmt/tei:author/@key}/persons/{instance('i-person-template')//tei:person/@xml:id}.xml" method="put" ref="instance('i-person-template')" replace="none">
                     <xf:action ev:event="xforms-submit-error">
-                        <xf:message>The record was not saved.</xf:message>
+                        <xf:message level="modal">The record was not saved.</xf:message>
                     </xf:action>
                     <xf:action ev:event="xforms-submit-done">
                         <xf:insert origin="instance('i-person-template')//tei:person" ref="instance('i-persons-history')/*" at="last()" position="after"/>
@@ -52,14 +50,9 @@
                 <xf:submission id="s-load-person-template" resource="modules/persons/person-template.xq" replace="instance" method="get" instance="i-person-template"/>
                 <xf:submission id="s-load-suggestions-by-forename" resource="cluster-services.xq?type=local-persons&amp;query={encode-for-uri(instance('i-person-template')//tei:person/tei:persName/tei:forename)}&amp;page_limit=15&amp;page=1" method="get" replace="instance" instance="i-person-suggestion"/>
                 <xf:submission id="s-load-suggestions-by-surname" resource="cluster-services.xq?type=local-persons&amp;query={encode-for-uri(instance('i-person-template')//tei:person/tei:persName/tei:surname)}&amp;page_limit=15&amp;page=1" method="get" replace="instance" instance="i-person-suggestion"/>
-                <xf:action ev:event="xforms-ready">
-                    <xf:send submission="s-load-person-template"/>
-                </xf:action>
             </xf:model>
             <xf:model id="m-organisation">
-                <xf:instance id="i-organisation-template">
-                    <TEI xmlns="http://www.tei-c.org/ns/1.0"/>
-                </xf:instance>
+                <xf:instance xmlns="http://www.tei-c.org/ns/1.0" id="i-organisation-template" src="modules/organisations/organisation-template.xq"/>
                 <xf:instance id="i-organisation-suggestion">
                     <pair xmlns=""/>
                 </xf:instance>
@@ -79,7 +72,7 @@
                 </xf:instance>
                 <xf:submission id="s-add-organisation" resource="/exist/rest/db/data/services/repositories/local/users/{instance('i-organisation-template')//tei:titleStmt/tei:author/@key}/organisations/{instance('i-organisation-template')//tei:org/@xml:id}.xml" method="put" ref="instance('i-organisation-template')" replace="none">
                     <xf:action ev:event="xforms-submit-error">
-                        <xf:message>The record was not saved.</xf:message>
+                        <xf:message level="modal">The record was not saved.</xf:message>
                     </xf:action>
                     <xf:action ev:event="xforms-submit-done">
                         <xf:insert origin="instance('i-organisation-template')//tei:org" ref="instance('i-organisations-history')/*" at="last()" position="after"/>
@@ -90,9 +83,6 @@
                 </xf:submission>
                 <xf:submission id="s-load-organisation-template" resource="modules/organisations/organisation-template.xq" replace="instance" method="get" instance="i-organisation-template"/>
                 <xf:submission id="s-load-suggestions" resource="cluster-services.xq?type=local-organisations&amp;query={encode-for-uri(instance('i-organisation-template')//tei:orgName)}&amp;page_limit=15&amp;page=1" replace="instance" method="get" instance="i-organisation-suggestion"/>
-                <xf:action ev:event="xforms-ready">
-                    <xf:send submission="s-load-organisation-template"/>
-                </xf:action>
             </xf:model>
         </div>
         <xf:group class="record-group" model="m-person">
