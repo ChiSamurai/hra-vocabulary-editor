@@ -70,7 +70,7 @@
                         <state type="existing"/>
                     </org>
                 </xf:instance>
-                <xf:submission id="s-add-organisation" resource="/exist/rest/db/data/services/repositories/local/users/{instance('i-organisation-template')//tei:titleStmt/tei:author/@key}/organisations/{instance('i-organisation-template')//tei:org/@xml:id}.xml" method="put" ref="instance('i-organisation-template')" replace="none">
+                <xf:submission id="s-add-organisation" resource="/exist/rest/db/data/services/repositories/local/users/{encode-for-uri(instance('i-organisation-template')//tei:titleStmt/tei:author/@key)}/organisations/{instance('i-organisation-template')//tei:org/@xml:id}.xml" method="put" ref="instance('i-organisation-template')" replace="none">
                     <xf:action ev:event="xforms-submit-error">
                         <xf:message level="modal">The record was not saved.</xf:message>
                     </xf:action>
@@ -87,10 +87,14 @@
         </div>
         <div class="menubar">
             <ul>
-                <li class="menubar-administration"><a href="#">Administration</a></li>
-                <li class="menubar-help"><a href="#">Help</a></li>
+                <li class="menubar-administration">
+                    <a href="#">Administration</a>
+                </li>
+                <li class="menubar-help">
+                    <a href="#">Help</a>
+                </li>
             </ul>
-        </div>        
+        </div>
         <xf:group class="record-group" model="m-person">
             <h2>Persons</h2>
             <xf:group class="record-adding-group">
@@ -179,7 +183,7 @@
                         <xf:trigger>
                             <xf:label>Clear</xf:label>
                             <xf:send submission="s-load-person-template"/>
-                        </xf:trigger>                        
+                        </xf:trigger>
                     </xf:group>
                 </xf:group>
             </xf:group>
@@ -322,7 +326,7 @@
                         <xf:trigger>
                             <xf:label>Clear</xf:label>
                             <xf:send submission="s-load-organisation-template"/>
-                        </xf:trigger>                        
+                        </xf:trigger>
                     </xf:group>
                 </xf:group>
             </xf:group>
