@@ -1,6 +1,7 @@
 xquery version "3.0";
 
-let $current-user := xmldb:get-current-user()
+let $current-user := xmldb:encode-uri(xmldb:get-current-user())
+let $log := util:log("INFO", $current-user)
 let $users-collection-path := "/data/services/repositories/local/users/"
 let $user-collection-path := xs:anyURI($users-collection-path || $current-user || "/")
 let $user-subcollection-names := ("persons", "organisations", "subjects")
